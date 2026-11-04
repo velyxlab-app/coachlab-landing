@@ -1,0 +1,719 @@
+
+---
+
+## 3️⃣ Landing page — `landing.html`
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoachLab Pro — Votre laboratoire d'entraînement, dans le cloud</title>
+<meta name="description" content="L'application web tout-en-un pour coach de football. Bibliothèque d'exercices, séances, présences, évaluations. 100% Google, coût zéro.">
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --accent: #34a853;
+    --dark: #202124;
+    --muted: #5f6368;
+    --bg: #ffffff;
+    --bg-alt: #f8f9fa;
+    --border: #dadce0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--dark);
+    line-height: 1.6;
+    background: var(--bg);
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 12px 0;
+  }
+  .nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--dark);
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .nav-cta {
+    background: var(--primary);
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .nav-cta:hover { background: var(--primary-dark); text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    letter-spacing: -.02em;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p.sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); text-decoration: none; }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(26,115,232,.3);
+  }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-secondary {
+    background: #fff;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .btn-secondary:hover { background: #f8f9fa; }
+  .hero-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 24px;
+  }
+  section.alt { background: var(--bg-alt); }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-title {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -.01em;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+
+  /* FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .feature {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,.08);
+  }
+  .feature-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .feature h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .feature p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* BENEFITS */
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+  }
+  .benefit {
+    text-align: center;
+  }
+  .benefit-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .benefit-label {
+    color: var(--muted);
+    font-size: 15px;
+    margin-top: 8px;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    counter-reset: step;
+  }
+  .step {
+    counter-increment: step;
+    text-align: center;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .step::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .step h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .step p {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* PRICING */
+  .pricing {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .plan {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .plan:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.1);
+  }
+  .plan.featured {
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(26,115,232,.15);
+  }
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .plan-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .plan-price {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -.02em;
+  }
+  .plan-price small {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .plan-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+    min-height: 40px;
+  }
+  .plan ul {
+    list-style: none;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+  .plan li {
+    padding: 8px 0;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .plan li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .plan li.no::before {
+    content: '✕';
+    color: var(--muted);
+  }
+  .plan li.no {
+    color: var(--muted);
+  }
+  .plan-cta {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all .15s;
+  }
+  .plan-cta.primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .plan-cta.primary:hover {
+    background: var(--primary-dark);
+    text-decoration: none;
+  }
+  .plan-cta.secondary {
+    background: #fff;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .plan-cta.secondary:hover {
+    background: #f8f9fa;
+    text-decoration: none;
+  }
+
+  /* FAQ */
+  .faq {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .faq details {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .faq summary {
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+  .faq summary::after {
+    content: '＋';
+    font-size: 20px;
+    color: var(--primary);
+    transition: transform .2s;
+  }
+  .faq details[open] summary::after {
+    content: '−';
+  }
+  .faq details p {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* CTA FINAL */
+  .cta-final {
+    text-align: center;
+    padding: 80px 24px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+  }
+  .cta-final h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .cta-final p {
+    font-size: 18px;
+    opacity: .9;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .cta-final .btn {
+    background: #fff;
+    color: var(--primary);
+  }
+  .cta-final .btn:hover {
+    background: #f8f9fa;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 24px;
+    background: #202124;
+    color: #9aa0a6;
+    font-size: 14px;
+    text-align: center;
+  }
+  footer a {
+    color: #e8eaed;
+    margin: 0 8px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    section { padding: 60px 20px; }
+    .hero { padding: 60px 20px 40px; }
+    .plan-price { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">⚽ CoachLab Pro</div>
+    <nav class="nav-links">
+      <a href="#features">Fonctionnalités</a>
+      <a href="#how">Comment ça marche</a>
+      <a href="#pricing">Tarifs</a>
+      <a href="#faq">FAQ</a>
+      <a href="#demo" class="nav-cta">Essayer gratuitement</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Votre <span>laboratoire d'entraînement</span>,<br>dans le cloud.</h1>
+  <p class="sub">
+    L'application tout-en-un pour coach de football : exercices, séances, présences, évaluations.
+    100 % Google, aucune installation, coût zéro.
+  </p>
+  <div class="hero-ctas">
+    <a href="#demo" class="btn btn-primary">🚀 Démarrer gratuitement</a>
+    <a href="#features" class="btn btn-secondary">Découvrir les fonctionnalités</a>
+  </div>
+  <p class="hero-note">✓ Aucune carte bancaire · ✓ Installation en 5 minutes · ✓ Données chez vous</p>
+</section>
+
+<!-- BENEFITS -->
+<section class="alt">
+  <div class="container">
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit-num">0 €</div>
+        <div class="benefit-label">Coût mensuel, à vie</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">5 min</div>
+        <div class="benefit-label">Pour être opérationnel</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">100 %</div>
+        <div class="benefit-label">Vos données chez vous</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">4</div>
+        <div class="benefit-label">Piliers : Tech · Tact · Phys · Mental</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Tout ce dont un coach a besoin</h2>
+    <p class="section-sub">
+      Remplacez vos Excel éparpillés, carnets papier et dossiers Drive non structurés
+      par une application unique, pensée pour le terrain.
+    </p>
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">📚</span>
+        <h3>Bibliothèque d'exercices</h3>
+        <p>Organisez vos exercices par pilier (Technique, Tactique, Physique, Mental). Importez vos fiches PDF en un clic, avec aperçu intégré.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📅</span>
+        <h3>Construction de séances</h3>
+        <p>Composez vos séances en glisser-ajouter. Durée totale calculée automatiquement. Export PDF prêt à imprimer.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">✅</span>
+        <h3>Présences en 30 secondes</h3>
+        <p>Grille de saisie rapide, 5 statuts (Présent, Retard, Absent, Blessé, Excusé). Bouton "Tout présent" pour aller vite.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">👥</span>
+        <h3>Fiches joueurs</h3>
+        <p>Infos complètes, évaluations notées 1-10 par catégorie, historique des entretiens. Suivez la progression de chacun.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📊</span>
+        <h3>Statistiques visuelles</h3>
+        <p>Répartition des exercices, taux de présence, prochaines séances. Tout sur un dashboard clair.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🔒</span>
+        <h3>Sécurisé par Google</h3>
+        <p>Authentification Google native. Aucun mot de passe à gérer. Vos données restent dans votre Drive.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📱</span>
+        <h3>Mobile-ready</h3>
+        <p>Interface responsive. Ajoutez l'app à votre écran d'accueil comme une app native.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📄</span>
+        <h3>PDF partout</h3>
+        <p>Fiches d'exercices, séances, rapports : exportez et imprimez tout ce dont vous avez besoin.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <h3>Zéro maintenance</h3>
+        <p>Pas de serveur, pas de mise à jour, pas de panne. Google gère tout. Vous coachez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="alt">
+  <div class="container">
+    <h2 class="section-title">Opérationnel en 4 étapes</h2>
+    <p class="section-sub">
+      Pas d'installation, pas de compte à créer. Juste un compte Google et 5 minutes.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <h4>Créez le Sheet</h4>
+        <p>Un Google Sheet vierge suffit. C'est votre base de données.</p>
+      </div>
+      <div class="step">
+        <h4>Collez le script</h4>
+        <p>3 fichiers à copier-coller. Documentation fournie.</p>
+      </div>
+      <div class="step">
+        <h4>Déployez</h4>
+        <p>Un clic pour publier votre Web App. URL unique.</p>
+      </div>
+      <div class="step">
+        <h4>C'est parti !</h4>
+        <p>Ajoutez vos exercices, créez votre première séance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <h2 class="section-title">Des tarifs honnêtes</h2>
+    <p class="section-sub">
+      Pas de surprise, pas d'engagement. Vous payez pour la valeur, pas pour le buzz.
+    </p>
+    <div class="pricing">
+      <div class="plan">
+        <div class="plan-name">Gratuit</div>
+        <div class="plan-price">0 €<small>/mois</small></div>
+        <div class="plan-desc">Pour découvrir et tester sans limite.</div>
+        <ul>
+          <li>Jusqu'à 20 exercices</li>
+          <li>1 équipe (30 joueurs max)</li>
+          <li>Construction de séances</li>
+          <li>Saisie de présences</li>
+          <li class="no">Import PDF illimité</li>
+          <li class="no">Export PDF séances</li>
+          <li class="no">Statistiques avancées</li>
+        </ul>
+        <a href="#demo" class="plan-cta secondary">Commencer</a>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Recommandé</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">9 €<small>/mois</small></div>
+        <div class="plan-desc">Pour le coach qui veut tout centraliser.</div>
+        <ul>
+          <li>Exercices illimités</li>
+          <li>3 équipes (illimité joueurs)</li>
+          <li>Import PDF illimité</li>
+          <li>Export PDF séances</li>
+          <li>Statistiques avancées</li>
+          <li>Évaluations joueurs</li>
+          <li>Support par email</li>
+        </ul>
+        <a href="#demo" class="plan-cta primary">Essayer 14 jours</a>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Club</div>
+        <div class="plan-price">49 €<small>/mois</small></div>
+        <div class="plan-desc">Pour les clubs multi-équipes.</div>
+        <ul>
+          <li>Tout du plan Pro</li>
+          <li>Multi-coach (5 comptes)</li>
+          <li>Équipes illimitées</li>
+          <li>Bibliothèque partagée</li>
+          <li>Académie (jeunes)</li>
+          <li>Support prioritaire</li>
+          <li>Onboarding personnalisé</li>
+        </ul>
+        <a href="#demo" class="plan-cta secondary">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="alt">
+  <div class="container">
+    <h2 class="section-title">Questions fréquentes</h2>
+    <p class="section-sub">Vous avez une autre question ? Écrivez-nous.</p>
+    <div class="faq">
+      <details>
+        <summary>Faut-il un compte Google ?</summary>
+        <p>Oui, un compte Google gratuit suffit. CoachLab Pro s'appuie sur Google Sheets et Google Drive pour stocker vos données, ce qui garantit qu'elles restent chez vous.</p>
+      </details>
+      <details>
+        <summary>Mes données sont-elles en sécurité ?</summary>
+        <p>Vos données sont stockées dans <strong>votre</strong> Google Drive, pas sur nos serveurs. Nous n'avons aucun accès. L'authentification est gérée par Google, sans mot de passe à gérer.</p>
+      </details>
+      <details>
+        <summary>Est-ce que ça marche sur mobile ?</summary>
+        <p>Oui, l'interface est entièrement responsive. Vous pouvez l'ajouter à votre écran d'accueil pour qu'elle se comporte comme une application native.</p>
+      </details>
+      <details>
+        <summary>Puis-je importer mes exercices PDF existants ?</summary>
+        <p>Oui, en masse. Il suffit de renommer vos fichiers selon une convention simple (<code>Categorie_Nom.pdf</code>), de les déposer dans un dossier Drive, et l'app les importe tous en un clic.</p>
+      </details>
+      <details>
+        <summary>Combien de joueurs puis-je gérer ?</summary>
+        <p>En pratique, plusieurs centaines. La version gratuite est limitée à 30 joueurs par équipe, les versions Pro et Club sont illimitées.</p>
+      </details>
+      <details>
+        <summary>Y a-t-il un engagement ?</summary>
+        <p>Non. Annulez à tout moment, sans frais, en un clic depuis votre espace. La version gratuite reste gratuite à vie.</p>
+      </details>
+      <details>
+        <summary>Et si je dépasse les quotas Google ?</summary>
+        <p>Les quotas gratuits de Google (15 Go de Drive, 6 min d'exécution Apps Script) sont largement suffisants pour un coach individuel. Pour un club, la version Club inclut des quotas étendus.</p>
+      </details>
+      <details>
+        <summary>Puis-je utiliser CoachLab Pro pour un autre sport ?</summary>
+        <p>L'app est pensée pour le football, mais elle est suffisamment générique pour tout sport collectif : rugby, handball, basket, volley. Contactez-nous pour une version adaptée.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="demo" class="cta-final">
+  <div class="container">
+    <h2>Prêt à coacher autrement ?</h2>
+    <p>Rejoignez les coachs qui ont arrêté de perdre du temps avec des fichiers éparpillés. Installation en 5 minutes, essai gratuit de 14 jours.</p>
+    <a href="mailto:contact@coachlab.pro?subject=Demande%20d'acc%C3%A8s%20CoachLab%20Pro" class="btn">
+      📩 Demander un accès
+    </a>
+    <p style="margin-top:24px;font-size:14px;opacity:.8">
+      Ou testez la version open source sur <a href="https://github.com" target="_blank" style="color:#fff;text-decoration:underline">GitHub</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 CoachLab Pro — Fait avec ⚽ et Google Apps Script</p>
+  <p style="margin-top:12px">
+    <a href="#features">Fonctionnalités</a>
+    <a href="#pricing">Tarifs</a>
+    <a href="#faq">FAQ</a>
+    <a href="mailto:contact@coachlab.pro">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>
